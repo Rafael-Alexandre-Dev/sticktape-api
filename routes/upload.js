@@ -1,4 +1,3 @@
-// uploadMultiple.js
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
@@ -6,7 +5,6 @@ const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    // Supondo que o arquivo esteja na pasta "routes", suba um nível para acessar "public/images"
     cb(null, path.join(__dirname, "..", "public", "images"));
   },
   filename: (req, file, cb) => {
@@ -16,7 +14,6 @@ const storage = multer.diskStorage({
   },
 });
 
-// Aqui indicamos que o multer deve aceitar um array de arquivos com o nome "files"
 const upload = multer({ storage });
 router.post("/multiple", upload.array("files", 20), (req, res) => {
   if (!req.files || req.files.length === 0) {
